@@ -55,9 +55,4 @@ public class FarmerService implements ServiceImple {
         return modelMapper.map(farmer, Farmersdto.class);
     }
 
-
-
-
-
-
 }

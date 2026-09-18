@@ -18,8 +18,7 @@ public class Vegetable {
 
     private String VegName;
     private String Image_url;
-    @OneToMany(mappedBy = "vegetableName", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "vegetable", cascade = CascadeType.ALL)
     private List<MarketPrice> prices;
-
 
 }

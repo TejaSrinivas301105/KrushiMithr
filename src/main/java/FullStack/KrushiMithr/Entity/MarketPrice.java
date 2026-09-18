@@ -25,6 +25,6 @@ public class MarketPrice {
 
     @ManyToOne
     @JoinColumn(name = "vegetable_id")
-    private Vegetable vegetableName;
+    private Vegetable vegetable;
 
 }

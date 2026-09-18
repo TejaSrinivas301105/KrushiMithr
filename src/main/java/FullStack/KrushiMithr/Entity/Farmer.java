@@ -1,36 +1,35 @@
 package FullStack.KrushiMithr.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-
+@Table(name = "Farmers")
 public class Farmer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private Users users;
+
     private String farmerName;
-
-    private String cropName;
-
     private String location;
-
     private String phoneNumber;
 
-    private String quantity;
+    @OneToMany(mappedBy = "farmer", cascade = CascadeType.ALL)
+    private List<CropListing> listings;
 
-    private String sellingPrice;
-
-    private String ImageUrl;
+    @OneToMany(mappedBy = "farmer", cascade = CascadeType.ALL)
+    private List<FarmerCrop> crops;
 
 }

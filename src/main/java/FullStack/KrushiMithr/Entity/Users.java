@@ -33,6 +33,11 @@ public class Users implements UserDetails {
 //    private String email;
     private String password;
 
+    @OneToOne(mappedBy = "users")
+    private Farmer farmer;
+
+    @OneToOne(mappedBy = "users")
+    private Buyers buyers;
     @Enumerated(EnumType.STRING)
     private Role role;
 

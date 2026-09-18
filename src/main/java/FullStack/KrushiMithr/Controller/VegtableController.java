@@ -3,13 +3,10 @@ package FullStack.KrushiMithr.Controller;
 import FullStack.KrushiMithr.Dto.AddMarketPricedto;
 import FullStack.KrushiMithr.Dto.AddVegetabledto;
 import FullStack.KrushiMithr.Dto.MarketPricedto;
+import FullStack.KrushiMithr.Dto.VegetableDto;
 import FullStack.KrushiMithr.Dto.VegtablePriceDto;
-import FullStack.KrushiMithr.Entity.MarketPrice;
-import FullStack.KrushiMithr.Entity.Vegetable;
-import FullStack.KrushiMithr.Repository.VegtableRepo;
 import FullStack.KrushiMithr.Services.MarketPriceService;
 import FullStack.KrushiMithr.Services.ServiceImple;
-import FullStack.KrushiMithr.Services.impl.SupaBaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,22 +22,11 @@ import java.util.List;
 public class VegtableController {
     private final ServiceImple serviceImple;
     private final MarketPriceService marketPriceService;
-    private final SupaBaseService storageService;
-    private final VegtableRepo vegtableRepo;
 
 
     @PostMapping("/Farmers/Vegetable")
-    public ResponseEntity<Vegetable> addVegetable(
-            @RequestBody AddVegetabledto dto
-    ) {
-
-        Vegetable veg = new Vegetable();
-        veg.setVegName(dto.getVeg_name());
-        veg.setImage_url(dto.getImage_url());
-
-        Vegetable saved = vegtableRepo.save(veg);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    public ResponseEntity<VegetableDto> addVegetable(@RequestBody AddVegetabledto dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(marketPriceService.addVegetables(dto));
     }
 
     @GetMapping("/Vegetables")

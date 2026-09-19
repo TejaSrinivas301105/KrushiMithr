@@ -11,6 +11,9 @@ import FullStack.KrushiMithr.Repository.VegtableRepo;
 import FullStack.KrushiMithr.Services.CropListingService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,6 +55,11 @@ public class CropListingServiceImpl implements CropListingService {
                 .toList();
     }
 
+    @Override
+    public Page<CropListingDto> getCropList(@PageableDefault(size = 10) Pageable pageable){
+        return cropListingRepo.findAll(pageable)
+                .map((element) -> modelMapper.map(element, CropListingDto.class));
+    }
     @Override
     public void deleteListing(Long listingId) {
         cropListingRepo.deleteById(listingId);

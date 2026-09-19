@@ -3,6 +3,7 @@ package FullStack.KrushiMithr.Services.impl;
 import FullStack.KrushiMithr.Dto.*;
 import FullStack.KrushiMithr.Entity.MarketPrice;
 import FullStack.KrushiMithr.Entity.Vegetable;
+import FullStack.KrushiMithr.Exception.VegetableNotFoundException;
 import FullStack.KrushiMithr.Repository.MarketPriceRepo;
 import FullStack.KrushiMithr.Repository.VegtableRepo;
 import FullStack.KrushiMithr.Services.MarketPriceService;
@@ -24,7 +25,7 @@ public class MarketService implements MarketPriceService {
     @Override
     public MarketPricedto addMarketPrice(AddMarketPricedto dto) {
         Vegetable vegetable = vegtableRepo.findById(dto.getVegetableId())
-                .orElseThrow(() -> new IllegalArgumentException("Vegetable not found"));
+                .orElseThrow(() -> new VegetableNotFoundException(dto.getVegetableId()));
 
         MarketPrice marketPrice = modelMapper.map(dto, MarketPrice.class);
         marketPrice.setVegetable(vegetable);

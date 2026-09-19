@@ -5,6 +5,9 @@ import FullStack.KrushiMithr.Dto.CropListingDto;
 import FullStack.KrushiMithr.Services.CropListingService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,5 +42,13 @@ public class CropListingController {
     public ResponseEntity<Void> deleteListing(@PathVariable Long listingId) {
         cropListingService.deleteListing(listingId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<CropListingDto>>  getCropList(@PageableDefault(
+            size = 10,
+            sort = "createdAt"
+    ) Pageable pageable ){
+        return ResponseEntity.ok(cropListingService.getCropList(pageable));
     }
 }
